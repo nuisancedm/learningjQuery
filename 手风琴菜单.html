@@ -6,37 +6,38 @@
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <style>
         *{margin: 0;padding: 0;}
-        li{list-style: none;width: 120px;height: 50px;background-color: brown;text-align: center;line-height: 50px;}
-        .second li{background: coral;margin-bottom: 1px;}
+        
+        li{list-style: none;background-color: brown;width: 120px;height: 40px;text-align: center;line-height: 40px;}
+        .second li{background-color: coral}
         .second{display: none;}
-       
+        .arrow{transform: rotate(90deg);display: inline-block;transition: all 700ms}
+        .rotate{transform: rotate(-90deg)}
     </style>
-</head>
 <body>
     <div>
         <ul class="first">
-            <li>首页</li>
+            <li>首页 <div class="arrow">></div></li>
             <ul class="second">
                 <li>首页二级</li>
                 <li>首页二级</li>
                 <li>首页二级</li>
                 <li>首页二级</li>
             </ul>
-            <li>产品</li>
+            <li>产品 <div class="arrow">></div></li>
             <ul class="second">
                 <li>产品二级</li>
                 <li>产品二级</li>
                 <li>产品二级</li>
                 <li>产品二级</li>
             </ul>
-            <li>咨询</li>
+            <li>咨询 <div class="arrow">></div></li>
             <ul class="second">
                 <li>咨询二级</li>
                 <li>咨询二级</li>
                 <li>咨询二级</li>
                 <li>咨询二级</li>
             </ul>
-            <li>关于</li>
+            <li>关于 <div class="arrow">></div></li>
             <ul class="second">
                 <li>关于二级</li>
                 <li>关于二级</li>
@@ -45,12 +46,16 @@
             </ul>
         </ul>
     </div>
+    
+    
     <script>
         $(".first>li").click(function(){
+            //完成手风琴
             $(this).next().slideToggle().siblings("ul").slideUp()
-            
-            $(this).children(".arrow").toggleClass("act")
-            $(this).siblings("li").children(".arrow").removeClass("act")
+            //完成箭头旋转
+            $(this).children(".arrow").toggleClass("rotate")
+            $(this).siblings().children(".arrow").removeClass("rotate")
+
         })
     </script>
 </body>
