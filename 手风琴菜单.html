@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        *{margin: 0;padding: 0;}
+        li{list-style: none;width: 120px;height: 50px;background-color: brown;text-align: center;line-height: 50px;}
+        .second li{background: coral;margin-bottom: 1px;}
+        .second{display: none;}
+       
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="first">
+            <li>首页</li>
+            <ul class="second">
+                <li>首页二级</li>
+                <li>首页二级</li>
+                <li>首页二级</li>
+                <li>首页二级</li>
+            </ul>
+            <li>产品</li>
+            <ul class="second">
+                <li>产品二级</li>
+                <li>产品二级</li>
+                <li>产品二级</li>
+                <li>产品二级</li>
+            </ul>
+            <li>咨询</li>
+            <ul class="second">
+                <li>咨询二级</li>
+                <li>咨询二级</li>
+                <li>咨询二级</li>
+                <li>咨询二级</li>
+            </ul>
+            <li>关于</li>
+            <ul class="second">
+                <li>关于二级</li>
+                <li>关于二级</li>
+                <li>关于二级</li>
+                <li>关于二级</li>
+            </ul>
+        </ul>
+    </div>
+    <script>
+        $(".first>li").click(function(){
+            $(this).next().slideToggle().siblings("ul").slideUp()
+        })
+
+        
+    </script>
+</body>
+</html>
