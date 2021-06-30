@@ -1,25 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <style>
-        *{margin: 0;padding: 0;}
-        .wrap{width: 800px;margin: auto;margin-top: 100px;}
-        .wrap li{list-style: none;float: left;margin-right: 5px;border-radius: 5px;padding: 5px 10px;}
-        ul{margin-bottom: 10px;}
-        ul p{float: left;margin-right: 10px;line-height: 31px;}
-        .highlight{background: #f60 !important;color: white !important;}
-        ul li:hover{background: #f3edc2;color: #f60;}
-        #selected ul,span{float: left;}
-        #selected li{background: #f60;color: white;}
-        
-        
-        
-        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 800px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .wrap li {
+            list-style: none;
+            float: left;
+            margin-right: 5px;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        ul {
+            margin-bottom: 10px;
+        }
+
+        ul p {
+            float: left;
+            margin-right: 10px;
+            line-height: 31px;
+        }
+
+        .highlight {
+            background: #f60 !important;
+            color: white !important;
+        }
+
+        ul li:hover {
+            background: #f3edc2;
+            color: #f60;
+        }
+
+        #selected ul,
+        span {
+            float: left;
+        }
+
+        #selected li {
+            background: #f60;
+            color: white;
+        }
     </style>
 </head>
+
 <body>
     <div class="wrap">
         <ul id="cloth">
@@ -45,7 +82,7 @@
             <div style="clear: both;"></div>
         </ul>
         <ul id="dress">
-            <p >裙装: </p>
+            <p>裙装: </p>
             <li class="highlight">全部</li>
             <li>连衣裙</li>
             <li>半身裙</li>
@@ -57,7 +94,7 @@
             <span>已选条件：</span>
             <span class="noSelected">暂时没有选择过滤条件</span>
             <ul class="list">
-                
+
                 <div style="clear: both;"></div>
             </ul>
             <div style="clear: both;"></div>
@@ -67,38 +104,47 @@
 
 
     <script>
-        $("ul li").click(function(){
-            var parID=$(this).parent().attr("id")
-            $(this).addClass("highlight").siblings().removeClass("highlight")
-            
-            if($(this).html()=="全部"){
-                $("#selected ul li").remove("."+parID)
-            }else if($("#selected ul ."+parID).length){
-                $("#selected ul ."+parID).html($(this).html())
-            }else{
-                $("#selected ul").prepend("<li class="+parID+">"+$(this).html()+"</li>")
+        //封装函数 决定已选条件提示文字时候显示
+        function selectCheck() {
+            if ($("#selected ul li").length) {
+                $(".noSelected").html(" ");
+            } else {
+                $(".noSelected").html("暂时没有选择过滤条件");
+            }
+        }
+
+        $("ul li").click(function () {
+            //变量声明
+            var parID = $(this).parent().attr("id");
+
+            //实现点击高光效果
+            $(this).addClass("highlight").siblings().removeClass("highlight");
+
+            //实现点击添加tag到筛选栏效果 和 同类tag替换效果
+            if ($(this).html() == "全部") {
+                $("#selected ul li").remove("." + parID);
+            } else if ($("#selected ul ." + parID).length) {
+                $("#selected ul ." + parID).html($(this).html());
+            } else {
+                $("#selected ul").prepend("<li class=" + parID + ">" + $(this).html() + "</li>");
             }
 
-            if($("#selected ul li").length){
-                $(".noSelected").html(" ")
-            }else{
-                $(".noSelected").html("暂时没有选择过滤条件")
-            }  
+            selectCheck();
         })
-        
-        $("#selected ul").on("click","li",function(){
-            var parID=$(this).attr("class")
-            $(this).remove()
-            $("#"+parID+" li").removeClass("highlight")
-            $("#"+parID+" li").eq(0).addClass("highlight")
-            
 
-            if($("#selected ul li").length){
-                $(".noSelected").html(" ")
-            }else{
-                $(".noSelected").html("暂时没有选择过滤条件")
-            } 
+
+
+        $("#selected ul").on("click", "li", function () {
+            var parID = $(this).attr("class");
+
+            //实现 点击已选条件栏的tag就删除点击的tag 并且只有“全部”为高亮效果
+            $(this).remove();
+            $("#" + parID + " li").removeClass("highlight");
+            $("#" + parID + " li").eq(0).addClass("highlight");
+
+            selectCheck();
         })
     </script>
 </body>
+
 </html>
