@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        
+    </style>
+<body>
+    <input type="text" id="city">
+    
+    
+    <script>
+        $("#city").blur(function(){
+            $.ajax({
+                url:"https://restapi.amap.com/v3/weather/weatherInfo",
+                type:"get",
+                dataType:"jsonp",
+                data:{key:"eb6dbeb9b1baaf88764e8f29a81cd5c4",city:$("#city").val(),extensions:"all"},
+                success:function(result){
+                    console.log(result)
+                },
+                timeout:5000
+                
+
+            })
+        })
+
+        // $.ajax({
+        //     url:"", //请求地址
+        //     type:"", //请求类型 get post
+        //     dataType:"", //返回数据类型 json xml
+        //     data:{param:"",param:""}, //参数
+        //     success:function(result){
+        //         console.log(result)
+        //     },  //请求成功返回数据
+        //     timeout:2000 //请求超时时间限制
+        // })
+
+
+        // $.ajax({
+        //     url:"",
+        //     type:"",
+        //     dataType:"",
+        //     data:{param:"",param:""},
+        //     success:function(result){
+        //         console.log(result)
+        //     }, 
+        //     timeout:2000
+        // })
+
+    </script>
+</body>
+</html>
