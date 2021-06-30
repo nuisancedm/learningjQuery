@@ -48,9 +48,10 @@
     <script>
         $(".first>li").click(function(){
             $(this).next().slideToggle().siblings("ul").slideUp()
+            
+            $(this).children(".arrow").toggleClass("act")
+            $(this).siblings("li").children(".arrow").removeClass("act")
         })
-
-        
     </script>
 </body>
 </html>
