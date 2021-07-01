@@ -114,33 +114,35 @@
         }
 
         $("ul li").click(function () {
-            //变量声明
-            var parID = $(this).parent().attr("id");
 
-            //实现点击高光效果
+            //变量声明 parID保存的是鼠标点击的对象的父集的ID属性 意义是为了给点击的元素（动态生成的元素）做标记
+            var parID = $(this).parent().attr("id"); 
+
+            //实现点击高光效果——实现点击高光的同时，需要移出当前元素所有同级元素的高光效果
             $(this).addClass("highlight").siblings().removeClass("highlight");
 
             //实现点击添加tag到筛选栏效果 和 同类tag替换效果
-            if ($(this).html() == "全部") {
-                $("#selected ul li").remove("." + parID);
-            } else if ($("#selected ul ." + parID).length) {
-                $("#selected ul ." + parID).html($(this).html());
-            } else {
-                $("#selected ul").prepend("<li class=" + parID + ">" + $(this).html() + "</li>");
+            if ($(this).html() == "全部") {                                                         //如果点的是全部
+                $("#selected ul li").remove("." + parID);                                           //移除已选条件里 和点击的"全部"有同样标记的li
+            } else if ($("#selected ul ." + parID).length) {                                        //点的不是全部，检测已选条件里和点击元素有着相同标记的元素的数量
+                $("#selected ul ." + parID).html($(this).html());                                   //如果有，更改其中的内容为被点击元素的内容
+            } else {                                                                                //如果没有
+                $("#selected ul").prepend("<li class=" + parID + ">" + $(this).html() + "</li>");   //那就添加    
             }
 
-            selectCheck();
+            selectCheck(); //判断一次 是否需要显示文字提示
         })
 
 
-
+        //动态生成的元素不能使用click方法直接绑定事件，需要使用.on方法绑定
         $("#selected ul").on("click", "li", function () {
-            var parID = $(this).attr("class");
+
+            var parID = $(this).attr("class"); //parID标记仍然需要，但是由于此时点击元素的功能从添加进已选变成了从已选中删除，声明的方法需要变化。局部变量不会覆盖
 
             //实现 点击已选条件栏的tag就删除点击的tag 并且只有“全部”为高亮效果
             $(this).remove();
-            $("#" + parID + " li").removeClass("highlight");
-            $("#" + parID + " li").eq(0).addClass("highlight");
+            $("#" + parID + " li").removeClass("highlight");  //把点击元素在其父集中的高光效果取消
+            $("#" + parID + " li").eq(0).addClass("highlight"); //给全部增加高光效果
 
             selectCheck();
         })
