@@ -141,8 +141,7 @@
 
             //实现 点击已选条件栏的tag就删除点击的tag 并且只有“全部”为高亮效果
             $(this).remove();
-            $("#" + parID + " li").removeClass("highlight");  //把点击元素在其父集中的高光效果取消
-            $("#" + parID + " li").eq(0).addClass("highlight"); //给全部增加高光效果
+            $("#" + parID + " li").removeClass("highlight").eq(0).addClass("highlight");  //把点击元素在其父集中的高光效果取消 给全部增加高光效果
 
             selectCheck();
         })
